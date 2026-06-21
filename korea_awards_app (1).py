@@ -16,13 +16,15 @@ try:
 except ImportError:
     PIL_AVAILABLE = False
 
+SNOWFLAKE_ERROR = None
 try:
     from snowflake.snowpark.context import get_active_session
     from snowflake.cortex import Complete
     session = get_active_session()
     SNOWFLAKE_AVAILABLE = True
-except Exception:
+except Exception as e:
     SNOWFLAKE_AVAILABLE = False
+    SNOWFLAKE_ERROR = str(e)
     session = None
 
 # ── PAGE CONFIG ──────────────────────────────────────────────
@@ -840,7 +842,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 if not SNOWFLAKE_AVAILABLE:
-    st.warning("⚠️ Snowflake 세션에 연결되어 있지 않습니다.")
+    st.error(f"⚠️ Snowflake 연결 실패: {SNOWFLAKE_ERROR}")
 
 # ── 전광판 + 관리자 배너 ─────────────────────────────────────
 b_left, b_mid, b_right = st.columns([4, 1, 1])
