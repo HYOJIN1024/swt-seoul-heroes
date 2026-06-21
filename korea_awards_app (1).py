@@ -3,18 +3,6 @@
 #  Tab 1 👗 AI 베스트 드레서  |  Tab 2 🦶 맨발에 땀나 상
 #  🖥️ 전광판 디스플레이 모드  |  🔐 관리자 페이지
 # ═══════════════════════════════════════════════════════════════
-import subprocess, sys
-
-def install(pkg):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", pkg, "-q"])
-
-try:
-    from snowflake.cortex import Complete
-except ImportError:
-    install("snowflake-ml-python")
-    from snowflake.cortex import Complete
-
-
 
 import streamlit as st
 import streamlit.components.v1 as components
